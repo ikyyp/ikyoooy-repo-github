@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Identitas Kelas 8.6</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+
+    table {
+      width: 90%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    }
+
+    table.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    #showDataButton {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #showDataButton:hover {
+      background-color: #45a049;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    form input {
+      padding: 8px;
+      margin: 5px;
+      font-size: 14px;
+      width: 200px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    form button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    form button:hover {
+      background-color: #45a049;
+    }
+
+    #footer {
+      text-align: center;
+      margin-top: 2em;
+      padding: 1em;
+      background-color: #f0f0f0;
+      border-top: 1px solid #ddd;
+      width: 90%;
+    }
+
+    #footerText {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #333;
+      width: 0;
+      animation:
+        typing 3s steps(30, end) forwards,
+        blink 0.75s step-end infinite;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff4d4d, #ffcc00, #33cc33, #3399ff, #cc33ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Identitas Kelas 8.6</h1>
+<h2>Wali Kelas: Desmiati</h2>
+
+<form id="formSiswa">
+  <input type="text" placeholder="Nama" id="nama" required>
+  <input type="number" placeholder="Umur" id="umur" required>
+  <input type="text" placeholder="Tanggal Lahir" id="lahir" required>
+  <input type="text" placeholder="Asal" id="asal" required>
+  <input type="text" placeholder="Sifat" id="sifat" required>
+  <input type="text" placeholder="Hobi" id="hobi" required>
+  <input type="text" placeholder="Makanan Favorit" id="makanan" required>
+  <input type="text" placeholder="Minuman Favorit" id="minuman" required>
+  <input type="text" placeholder="Kalo Gabut ngapain?" id="gabut" required>
+  <button type="submit" id="addButton">Tambah Data</button>
+</form>
+
+<button id="showDataButton">Tampilkan Data</button>
+
+<div id="dataSiswa">
+  <table id="tabelSiswa">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Umur</th>
+        <th>Tanggal Lahir</th>
+        <th>Asal</th>
+        <th>Sifat</th>
+        <th>Hobi</th>
+        <th>Makanan</th>
+        <th>Minuman</th>
+        <th>Gabut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data akan ditambahkan di sini -->
+    </tbody>
+  </table>
+</div>
+
+<div id="footer">
+  <div id="footerText">Dibuat oleh Ikyy</div>
+  <button id="contactButton" onclick="window.location.href='https://wa.me/6285764413880?text=Halo%20Ikyy%20saya%20mau%20tanya%20tentang%20kelas%208.6'">WhatsApp Ikyy</button>
+</div>
+
+<!-- Suara Ketikan -->
+<audio id="ketikanSound" src="https://files.catbox.moe/yd3eed.mp3" preload="auto"></audio>
+
+<script>
+  const form = document.getElementById("formSiswa");
+  const table = document.getElementById("tabelSiswa");
+  const tbody = table.querySelector("tbody");
+  const button = document.getElementById("showDataButton");
+  const ketikanSound = document.getElementById("ketikanSound");
+
+  let no = 1;
+
+  // Fungsi untuk memainkan suara ketikan saat mengetik
+  function playKetikanSound() {
+    ketikanSound.currentTime = 0; // reset suara
+    ketikanSound.play();
+  }
+
+  form.addEventListener("input", function() {
+    playKetikanSound(); // Mainkan suara setiap kali pengguna mengetik
+  });
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const nama = document.getElementById("nama").value;
+    const umur = document.getElementById("umur").value;
+    const lahir = document.getElementById("lahir").value;
+    const asal = document.getElementById("asal").value;
+    const sifat = document.getElementById("sifat").value;
+    const hobi = document.getElementById("hobi").value;
+    const makanan = document.getElementById("makanan").value;
+    const minuman = document.getElementById("minuman").value;
+    const gabut = document.getElementById("gabut").value;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${no++}</td>
+      <td>${nama}</td>
+      <td>${umur}</td>
+      <td>${lahir}</td>
+      <td>${asal}</td>
+      <td>${sifat}</td>
+      <td>${hobi}</td>
+      <td>${makanan}</td>
+      <td>${minuman}</td>
+      <td>${gabut}</td>
+    `;
+    tbody.appendChild(row);
+
+    form.reset();
+    table.classList.add('show');
+    table.style.display = 'table';
+  });
+
+  button.addEventListener('click', () => {
+    table.classList.add('show');
+    table.style.display = 'table';
+    button.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
